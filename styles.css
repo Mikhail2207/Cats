@@ -1,0 +1,25 @@
+.modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.modal__content {
+  background: white;
+  max-width: 480px;
+  min-width: 320px;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.hidden {
+  display: none;
+}

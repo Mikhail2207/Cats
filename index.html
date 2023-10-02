@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,13 +12,15 @@
       crossorigin="anonymous"
     />
     <script defer src="index.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Document</title>
   </head>
   <body>
     <div class="container py-5">
       <h1 class="text-center mb-4">Cats</h1>
       <div class="d-flex justify-content-center">
         <button
-          data-action="${ACTIONS.DELETE}"
+          data-openModal="createCat"
           type="button"
           class="btn btn-success mb-4"
         >
@@ -27,6 +29,66 @@
       </div>
       <hr class="mb-5" />
       <div data-wr class="d-flex flex-wrap"></div>
+    </div>
+    <div data-modalWr class="modal hidden">
+      <div data-modalContent class="modal__content">
+        <h4 class="text-center mb-4">Create new cat</h4>
+        <form name="createCatForm">
+          <div class="mb-3">
+            <input
+              type="number"
+              class="form-control"
+              name="id"
+              placeholder="Id"
+            />
+          </div>
+
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder="Name"
+            />
+          </div>
+
+          <div class="mb-3">
+            <input
+              type="number"
+              class="form-control"
+              name="age"
+              placeholder="Age"
+            />
+          </div>
+
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="description"
+              placeholder="Description"
+            />
+          </div>
+
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="image"
+              placeholder="Image url"
+            />
+          </div>
+
+          <div class="mb-3">
+            <input type="range" name="rate" min="1" max="10" />
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" name="favorite" />
+            <label class="form-check-label" for="exampleCheck1">Favorite</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

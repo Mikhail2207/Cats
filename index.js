@@ -1,5 +1,8 @@
 const $wr = document.querySelector('[data-wr]')
-
+const $createCatForm = document.forms.createCatForm
+const $modalWr = document.querySelector('[data-modalWr]')
+const $modalContent = document.querySelector('[data-modalContent]')
+console.log($modalWr, $modalContent)
 const ACTIONS = {
   DETAIL: 'detail',
   DELETE: 'delete',
@@ -45,5 +48,63 @@ $wr.addEventListener('click', (e) => {
 
       alert(`Удаление кота с ID ${catId} не удалось`)
     })
+  }
+})
+
+const submitCreateCatHandler = (e) => {
+  e.preventDefault()
+
+  let formDataObject = Object.fromEntries(new FormData(e.target).entries())
+  console.log(formDataObject)
+
+  formDataObject = {
+    ...formDataObject,
+    id: +formDataObject.id,
+    age: +formDataObject.age,
+    rate: +formDataObject.rate,
+    favorite: !!formDataObject.favorite,
+  }
+
+  $modalWr.classList.add('hidden')
+
+  fetch(`${path}${person}/add/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formDataObject),
+  }).then((res) => {
+    if (res.status === 200) {
+      $wr.insertAdjacentHTML('beforeend', getCatHTML(formDataObject))
+    }
+  })
+}
+
+const clickModalWrHandler = (e) => {
+  if (e.target === $modalWr) {
+    $modalWr.classList.add('hidden')
+    $modalWr.removeEventListener('click', clickModalWrHandler)
+    $createCatForm.removeEventListener('submit', submitCreateCatHandler)
+  }
+}
+
+const openModalHandler = (e) => {
+  const targetModalName = e.target.dataset.openmodal
+
+  if (targetModalName === 'createCat') {
+    $modalWr.classList.remove('hidden')
+
+    $modalWr.addEventListener('click', clickModalWrHandler)
+    $createCatForm.addEventListener('submit', submitCreateCatHandler)
+  }
+}
+
+document.addEventListener('click', openModalHandler)
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    $modalWr.classList.add('hidden')
+    $modalWr.removeEventListener('click', clickModalWrHandler)
+    $createCatForm.removeEventListener('submit', submitCreateCatHandler)
   }
 })
